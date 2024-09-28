@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Html편집기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff;  /* 연한 파란색 배경 */
+        }
+        h1, h3 {
+            color: #333; /* 제목 색 */
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;  /* 동글동글한 테두리 */
+            border: 2px solid #ccc;  /* 테두리 색상 */
+            padding: 10px; /* 여백 추가 */
+            font-size: 16px;  /* 글자 크기 */
+            resize: none; /* 크기 조절 비활성화 */
+        }
+        button {
+            border: none; /* 기본 테두리 제거 */
+            border-radius: 10px; /* 동글동글하게 */
+            padding: 10px 15px; /* 여백 추가 */
+            background-color: #4CAF50; /* 버튼 배경색 */
+            color: white; /* 글자 색상 */
+            font-size: 16px; /* 글자 크기 */
+            cursor: pointer; /* 마우스 커서가 바뀜 */
+            transition: background-color 0.3s; /* 배경색 변화 효과 */
+        }
+        button:hover {
+            background-color: #45a049; /* 마우스 오버 시 배경색 변화 */
+        }
+        #help {
+            background-color: #ffffff; /* 도움말 배경색 */
+            border: 1px solid #aaa; /* 도움말 테두리 색상 */
+            border-radius: 10px; /* 동글동글한 테두리 */
+            padding: 15px; /* 여백 추가 */
+            margin-top: 20px;
+        }
+        #preview {
+            border-radius: 10px; /* 미리보기 iframe 동글동글한 테두리 */
+            border: 1px solid #ccc; /* 미리보기 테두리 색상 */
+        }
+    </style>
+</head>
+<body>
+    <h1>온라인 HTML 편집기</h1>
+    <h3>HTML 코드 입력:</h3>
+    <textarea id="htmlCode" placeholder="여기에 HTML 코드를 입력하세요."></textarea>
+    <button onclick="downloadHTML()">HTML 다운로드</button>
+    
+    <h3>실행 결과:</h3>
+    <iframe id="preview" style="width: 100%; height: 300px;"></iframe>
+
+    <div id="help">
+        <h3>도움말</h3>
+        <p>이 온라인 HTML 편집기를 사용하여 HTML 코드를 작성하고 미리보기 할 수 있습니다.</p>
+        <p>기본 HTML 템플릿을 삽입하려면 textarea에 <code>html:5</code>를 입력한 후 <strong>Tab</strong> 키를 누르세요.</p>
+        <p>작성한 HTML 코드를 다운로드하려면 <strong>HTML 다운로드</strong> 버튼을 클릭하세요.</p>
+    </div>
+
+    <script>
+        const textarea = document.getElementById("htmlCode");
+        const preview = document.getElementById("preview");
+
+        // HTML 기본 템플릿
+        const htmlTemplate = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>`;
+
+        textarea.addEventListener("input", () => {
+            const htmlContent = textarea.value;
+            preview.srcdoc = htmlContent;
+        });
+
+        // 기본 템플릿 삽입 함수
+        function insertHtmlTemplate() {
+            textarea.value = htmlTemplate;
+            preview.srcdoc = htmlTemplate; // 미리 보기 업데이트
+        }
+
+        function downloadHTML() {
+            const htmlContent = textarea.value;
+            const blob = new Blob([htmlContent], { type: "text/html" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            egjrgjdfg=prompt('파일 이름을 입력하세요:')
+            link.download = egjrgjdfg;
+            link.click();
+        }
+
+        // 키보드 이벤트 추가
+        textarea.addEventListener("keydown", (event) => {
+            if (event.key === "Tab") {
+                
+                insertHtmlTemplate(); // 기본 템플릿을 삽입
+            }
+        });
+    </script>
+</body>
+</html>
